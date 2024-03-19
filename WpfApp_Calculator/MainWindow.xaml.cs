@@ -20,100 +20,47 @@ namespace WpfApp_Calculator
         {
             InitializeComponent();
         }
+        private void NumberButton_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button != null)
+            {
+                string buttonText = button.Content.ToString();
+                if (MainScreen.Text == 0.ToString())
+                {
+                    MainScreen.Clear();
+                }
+                MainScreen.Text += buttonText;
+            }
+        }
 
         private void btnClear_Click(object sender, RoutedEventArgs e)
         {
             MainScreen.Clear();
-            MainScreen.Text += "0";
+            MainScreen.Text += 0.ToString();
         }
 
-        private void btn1_Click(object sender, RoutedEventArgs e)
+        private void btnPlus_Click(object sender, RoutedEventArgs e)
         {
-            if (MainScreen.Text == "0")
+            if (!MainScreen.Text.Any(char.IsDigit) || MainScreen.Text.EndsWith("-") || MainScreen.Text.EndsWith("+") || MainScreen.Text.EndsWith("*") || MainScreen.Text.EndsWith("/"))
             {
-                MainScreen.Clear();
+                return;
             }
-            MainScreen.Text += "1";
+            MainScreen.Text += "+";
         }
 
-        private void btn2_Click(object sender, RoutedEventArgs e)
+        private void btnMinus_Click(object sender, RoutedEventArgs e)
         {
-            if (MainScreen.Text == "0")
+            if (!MainScreen.Text.Any(char.IsDigit) || MainScreen.Text.EndsWith("-") || MainScreen.Text.EndsWith("+") || MainScreen.Text.EndsWith("*") || MainScreen.Text.EndsWith("/"))
             {
-                MainScreen.Clear();
+                return;
             }
-            MainScreen.Text += "2";
+            MainScreen.Text += "-";
         }
 
-        private void btn3_Click(object sender, RoutedEventArgs e)
+        private void btnEquals_Click(object sender, RoutedEventArgs e)
         {
-            if (MainScreen.Text == "0")
-            {
-                MainScreen.Clear();
-            }
-            MainScreen.Text += "3";
-        }
-
-        private void btn4_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainScreen.Text == "0")
-            {
-                MainScreen.Clear();
-            }
-            MainScreen.Text += "4";
-        }
-
-        private void btn5_Click(object sender, RoutedEventArgs e)
-        {
-            if(MainScreen.Text == "0")
-            {
-                MainScreen.Clear();
-            }
-            MainScreen.Text += "5";
-        }
-
-        private void btn6_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainScreen.Text == "0")
-            {
-                MainScreen.Clear();
-            }
-            MainScreen.Text += "6";
-        }
-
-        private void btn7_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainScreen.Text == "0")
-            {
-                MainScreen.Clear();
-            }
-            MainScreen.Text += "7";
-        }
-
-        private void btn8_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainScreen.Text == "0")
-            {
-                MainScreen.Clear();
-            }
-            MainScreen.Text += "8";
-        }
-
-        private void btn9_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainScreen.Text == "0")
-            {
-                MainScreen.Clear();
-            }
-            MainScreen.Text += "9";
-        }
-
-        private void bnt0_Click(object sender, RoutedEventArgs e)
-        {
-            if (MainScreen.Text != "0")
-            {
-                MainScreen.Text += "0";
-            }
+          SecondaryScreen.Text = MainScreen.Text;
         }
     }
 }
