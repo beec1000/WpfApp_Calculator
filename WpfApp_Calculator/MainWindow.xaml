@@ -5,31 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp_Calculator"
         mc:Ignorable="d"
-        Title="WPF Calculator" Height="550" Width="400">
+        Title="WPF Calculator" Height="550" Width="450">
     <Grid>
-        <Button x:Name="btn7" Content="7" HorizontalAlignment="Left" Margin="10,204,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="NumberButton_Click"/>
-        <Button x:Name="btn8" Content="8" HorizontalAlignment="Left" Margin="84,204,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="NumberButton_Click"/>
-        <Button x:Name="btn9" Content="9" HorizontalAlignment="Left" Margin="158,204,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="NumberButton_Click"/>
-        <Button x:Name="btn4" Content="4" HorizontalAlignment="Left" Margin="10,276,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="NumberButton_Click"/>
-        <Button x:Name="btn1" Content="1" HorizontalAlignment="Left" Margin="10,348,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="NumberButton_Click"/>
-        <Button x:Name="btn5" Content="5" HorizontalAlignment="Left" Margin="84,276,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="NumberButton_Click"/>
-        <Button x:Name="btn6" Content="6" HorizontalAlignment="Left" Margin="158,276,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="NumberButton_Click"/>
-        <Button x:Name="btn2" Content="2" HorizontalAlignment="Left" Margin="84,348,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="NumberButton_Click"/>
-        <Button x:Name="btn3" Content="3" HorizontalAlignment="Left" Margin="158,348,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="NumberButton_Click"/>
-        <Button x:Name="bnt0" Content="0" HorizontalAlignment="Left" Margin="84,420,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="NumberButton_Click"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
 
-        <Button x:Name="btnMinus" Content="-" HorizontalAlignment="Left" Margin="250,348,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="btnMinus_Click"/>
-        <Button x:Name="btnEquals" Content="=" HorizontalAlignment="Left" Margin="324,420,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="btnEquals_Click"/>
-        <Button x:Name="btnClear" Content="C" HorizontalAlignment="Left" Margin="250,204,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="btnClear_Click"/>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20">
+            <TextBox x:Name="MainScreen" Text="0" Width="400" Height="50" FontSize="30" TextAlignment="Right" IsReadOnly="True" Margin="0,0,0,10"/>
+            <TextBox x:Name="SecondaryScreen" Text="" Width="150" Height="25" FontSize="15" TextAlignment="Right" IsReadOnly="True" Margin="0,0,0,0"/>
+            <CheckBox x:Name="ExtraOperators" Content="Tudományos" Checked="Checked" Unchecked="Unchecked"/>
+        </StackPanel>
 
-        <Button x:Name="btnAllClear" Content="CE" HorizontalAlignment="Left" Margin="324,204,0,0" VerticalAlignment="Top" Height="67" Width="69"/>
-        <Button x:Name="btnPlus" Content="+" HorizontalAlignment="Left" Margin="250,276,0,0" VerticalAlignment="Top" Height="67" Width="69" Click="btnPlus_Click"/>
-        <Button x:Name="btnMultiply" Content="*" HorizontalAlignment="Left" Margin="324,276,0,0" VerticalAlignment="Top" Height="67" Width="69"/>
-        <Button x:Name="btnDivide" Content="/" HorizontalAlignment="Left" Margin="324,348,0,0" VerticalAlignment="Top" Height="67" Width="69"/>
-        <Button x:Name="btnDot" Content="." HorizontalAlignment="Left" Margin="250,420,0,0" VerticalAlignment="Top" Height="67" Width="69"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <TextBox x:Name="MainScreen" HorizontalAlignment="Left" Margin="10,91,0,0" Text="0" VerticalAlignment="Top" Width="383" Height="90" FontSize="55" TextAlignment="Right" IsReadOnly="True"/>
-        <TextBox x:Name="SecondaryScreen" HorizontalAlignment="Left" Margin="10,56,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="383" Height="30" TextAlignment="Right" IsReadOnly="True"/>
+            <Button Grid.Row="1" Grid.Column="0" Content="7" Click="NumberButton_Click" Margin="5"/>
+            <Button Grid.Row="1" Grid.Column="1" Content="8" Click="NumberButton_Click" Margin="5"/>
+            <Button Grid.Row="1" Grid.Column="2" Content="9" Click="NumberButton_Click" Margin="5"/>
+            <Button Grid.Row="2" Grid.Column="4" Content="-" Click="OperatorButton_Click" Margin="5"/>
+            <Button Grid.Row="1" Grid.Column="3" Content="C" Click="btnClear_Click" Margin="5"/>
 
+            <Button Grid.Row="2" Grid.Column="0" Content="4" Click="NumberButton_Click" Margin="5"/>
+            <Button Grid.Row="2" Grid.Column="1" Content="5" Click="NumberButton_Click" Margin="5"/>
+            <Button Grid.Row="2" Grid.Column="2" Content="6" Click="NumberButton_Click" Margin="5"/>
+            <Button Grid.Row="2" Grid.Column="3" Content="+" Click="OperatorButton_Click" Margin="5"/>
+            <Button Grid.Row="1" Grid.Column="4" Content="CE" Click="Button_Click" Margin="5"/>
+
+            <Button Grid.Row="3" Grid.Column="0" Content="1" Click="NumberButton_Click" Margin="5"/>
+            <Button Grid.Row="3" Grid.Column="1" Content="2" Click="NumberButton_Click" Margin="5"/>
+            <Button Grid.Row="3" Grid.Column="2" Content="3" Click="NumberButton_Click" Margin="5"/>
+            <Button Grid.Row="3" Grid.Column="3" Content="*" Click="OperatorButton_Click" Margin="5"/>
+            <Button Grid.Row="4" Grid.Column="2" Content="=" Click="btnEquals_Click" Margin="5"/>
+
+            <Button Grid.Row="4" Grid.Column="1" Content="0" Click="NumberButton_Click" Margin="5"/>
+            <Button Grid.Row="4" Grid.Column="0" Content="." Margin="5"/>
+            <Button Grid.Row="3" Grid.Column="4" Content="/" Click="OperatorButton_Click" Margin="5"/>
+            <Button x:Name="btnSquareRoot" Grid.Row="4" Grid.Column="3" Content="√" Click="OperatorButton_Click" Visibility="Hidden" Margin="5"/>
+            <Button x:Name="btnPower" Grid.Row="4" Grid.Column="4" Content="^" Click="OperatorButton_Click" Visibility="Hidden" Margin="5"/>
+
+        </Grid>
     </Grid>
 </Window>
