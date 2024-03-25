@@ -18,7 +18,7 @@
             <CheckBox x:Name="ExtraOperators" Content="Tudományos" Checked="Checked" Unchecked="Unchecked"/>
         </StackPanel>
 
-        <Grid Grid.Row="1">
+        <Grid x:Name="MainGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

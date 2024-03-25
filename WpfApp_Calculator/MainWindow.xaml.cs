@@ -57,19 +57,16 @@ namespace WpfApp_Calculator
                     return;
                 }
 
-                if (!MainScreen.Text.Any(char.IsDigit))
+                if (buttonText == '√')
                 {
+                    firstNumber = 0;
+                    MainScreen.Text = "√";
                     return;
                 }
 
-                if (firstNumber == 0)
+                if (!MainScreen.Text.Any(char.IsDigit))
                 {
-                    firstNumber = double.Parse(MainScreen.Text);
-                }
-                else
-                { 
-                    secondNumber = firstNumber;
-                    firstNumber = 0;
+                    return;
                 }
 
                 firstNumber = double.Parse(MainScreen.Text);
