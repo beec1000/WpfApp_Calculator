@@ -19,6 +19,8 @@ namespace WpfApp_Calculator
         private double firstNumber = 0;
         private double secondNumber = 0;
         private char operation;
+        private char powOperation;
+        private HashSet<char> validOperator = new HashSet<char> { '-', '+', '*', '/', '^', '√' };
 
         public MainWindow()
         {
@@ -45,12 +47,7 @@ namespace WpfApp_Calculator
             {
                 char buttonText = button.Content.ToString()[0];
 
-                if (MainScreen.Text.EndsWith("-") ||
-                    MainScreen.Text.EndsWith("+") ||
-                    MainScreen.Text.EndsWith("*") ||
-                    MainScreen.Text.EndsWith("/") ||
-                    MainScreen.Text.EndsWith("^") ||
-                    MainScreen.Text.EndsWith("√"))
+                if (validOperator.Contains(MainScreen.Text.LastOrDefault()))
                 {
                     operation = buttonText;
                     MainScreen.Text = MainScreen.Text.Remove(MainScreen.Text.Length - 1) + buttonText;
@@ -78,12 +75,7 @@ namespace WpfApp_Calculator
         private void btnEquals_Click(object sender, RoutedEventArgs e)
         {
             {
-                if (MainScreen.Text.EndsWith("-") ||
-                    MainScreen.Text.EndsWith("+") ||
-                    MainScreen.Text.EndsWith("*") ||
-                    MainScreen.Text.EndsWith("/") ||
-                    MainScreen.Text.EndsWith("^") ||
-                    MainScreen.Text.EndsWith("√"))
+                if (validOperator.Contains(MainScreen.Text.LastOrDefault()))
                 {
                     return;
                 }
@@ -106,7 +98,14 @@ namespace WpfApp_Calculator
                         result = Math.Pow(firstNumber, secondNumber);
                         break;
                     case '√':
-                        result = Math.Sqrt(secondNumber);
+                        //if (firstNumber == 0)
+                        //{
+                        //    firstNumber = double.Parse(null);
+                            result = Math.Sqrt(secondNumber);
+                        //}
+
+                        /*A gyökvonás nem működik*/
+                        
                         break;
                     case '/':
                         if (secondNumber != 0)
