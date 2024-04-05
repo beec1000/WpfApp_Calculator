@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Linq;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -11,15 +12,21 @@ using System.Windows.Shapes;
 
 namespace WpfApp_Calculator
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    /*
+    -Rejtett gombok működnek
+    -(+;-;*;/;^) számolások működnek
+    -Összes törlés/Karakterenkénti törlés működik
+    -0-val való osztást kezeli
+    -Van 2 mező a számítás megjelenítésére
+    -Reszponzív az ablak
+    -(√;.) gombok bugosak/nem működnek
+    */
     public partial class MainWindow : Window
     {
         private double firstNumber = 0;
         private double secondNumber = 0;
         private char operation;
-        private char powOperation;
+        //private char powOperation;
         private HashSet<char> validOperator = new HashSet<char> { '-', '+', '*', '/', '^', '√' };
 
         public MainWindow()
@@ -61,11 +68,6 @@ namespace WpfApp_Calculator
                     return;
                 }
 
-                if (!MainScreen.Text.Any(char.IsDigit))
-                {
-                    return;
-                }
-
                 firstNumber = double.Parse(MainScreen.Text);
                 operation = buttonText;
                 MainScreen.Text += buttonText;
@@ -98,14 +100,7 @@ namespace WpfApp_Calculator
                         result = Math.Pow(firstNumber, secondNumber);
                         break;
                     case '√':
-                        //if (firstNumber == 0)
-                        //{
-                        //    firstNumber = double.Parse(null);
-                            result = Math.Sqrt(secondNumber);
-                        //}
-
-                        /*A gyökvonás nem működik*/
-                        
+                            result = Math.Sqrt(secondNumber);               
                         break;
                     case '/':
                         if (secondNumber != 0)
@@ -115,6 +110,7 @@ namespace WpfApp_Calculator
                         else
                         {
                             MessageBox.Show("Hiba!!! 0-val való osztás", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MainScreen.Text = MainScreen.Text.Remove(MainScreen.Text.Length - 1);
                             return;
                         }
                         break;
