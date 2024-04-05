@@ -26,7 +26,6 @@ namespace WpfApp_Calculator
         private double firstNumber = 0;
         private double secondNumber = 0;
         private char operation;
-        //private char powOperation;
         private HashSet<char> validOperator = new HashSet<char> { '-', '+', '*', '/', '^', '√' };
 
         public MainWindow()
@@ -74,54 +73,67 @@ namespace WpfApp_Calculator
             }
 
         }
-        private void btnEquals_Click(object sender, RoutedEventArgs e)
+        private void EqualsButton_Click(object sender, RoutedEventArgs e)
         {
+            if (validOperator.Contains(MainScreen.Text.LastOrDefault()))
             {
-                if (validOperator.Contains(MainScreen.Text.LastOrDefault()))
-                {
-                    return;
-                }
-
-                secondNumber = double.Parse(MainScreen.Text.Split(operation)[1]);
-
-                double result = 0;
-                switch (operation)
-                {
-                    case '+':
-                        result = firstNumber + secondNumber;
-                        break;
-                    case '-':
-                        result = firstNumber - secondNumber;
-                        break;
-                    case '*':
-                        result = firstNumber * secondNumber;
-                        break;
-                    case '^':
-                        result = Math.Pow(firstNumber, secondNumber);
-                        break;
-                    case '√':
-                            result = Math.Sqrt(secondNumber);               
-                        break;
-                    case '/':
-                        if (secondNumber != 0)
-                        {
-                            result = firstNumber / secondNumber;
-                        }
-                        else
-                        {
-                            MessageBox.Show("Hiba!!! 0-val való osztás", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
-                            MainScreen.Text = MainScreen.Text.Remove(MainScreen.Text.Length - 1);
-                            return;
-                        }
-                        break;
-                }
-
-                MainScreen.Text = result.ToString();
-                SecondaryScreen.Text = result.ToString();
+                return;
             }
+            string[] parts = MainScreen.Text.Split(operation);
+            if (parts.Length != 2)
+            {
+                // Invalid input format, do nothing
+                return;
+            }
+
+            // Parse the second number
+            secondNumber = double.Parse(parts[1]);
+
+            double result = 0;
+            switch (operation)
+            {
+                case '+':
+                    result = firstNumber + secondNumber;
+                    break;
+                case '-':
+                    result = firstNumber - secondNumber;
+                    break;
+                case '*':
+                    result = firstNumber * secondNumber;
+                    break;
+                case '^':
+                    result = Math.Pow(firstNumber, secondNumber);
+                    break;
+                case '√':
+                    if (secondNumber >= 0)
+                    {
+                        result = Math.Sqrt(secondNumber);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cannot calculate square root of a negative number", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MainScreen.Text = MainScreen.Text.Remove(MainScreen.Text.Length - 1);
+                        return;
+                    }
+                    break;
+                case '/':
+                    if (secondNumber != 0)
+                    {
+                        result = firstNumber / secondNumber;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Hiba!!! 0-val való osztás", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MainScreen.Text = MainScreen.Text.Remove(MainScreen.Text.Length - 1);
+                        return;
+                    }
+                    break;
+            }
+            MainScreen.Text = result.ToString();
+            SecondaryScreen.Text = result.ToString();
         }
 
-        private void btnClear_Click(object sender, RoutedEventArgs e)
+        private void SingleClearB_Click(object sender, RoutedEventArgs e)
         {
 
             if (MainScreen.Text.Length > 0)
@@ -135,6 +147,15 @@ namespace WpfApp_Calculator
             }
         }
 
+        private void AllClearB_Click(object sender, RoutedEventArgs e)
+        {
+            MainScreen.Clear();
+            MainScreen.Text = "0";
+            SecondaryScreen.Clear();
+            firstNumber = 0;
+            secondNumber = 0;
+        }
+
         private void Checked(object sender, RoutedEventArgs e)
         {
             btnSquareRoot.Visibility = Visibility.Visible;
@@ -145,15 +166,6 @@ namespace WpfApp_Calculator
         {
             btnSquareRoot.Visibility = Visibility.Collapsed;
             btnPower.Visibility = Visibility.Collapsed;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            MainScreen.Clear();
-            MainScreen.Text = "0";
-            SecondaryScreen.Clear();
-            firstNumber = 0;
-            secondNumber = 0;
         }
     }
 }
